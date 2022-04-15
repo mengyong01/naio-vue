@@ -9,7 +9,7 @@ const publicRotues: Array<RouteRecordRaw> = [
     {
         path: '/',
         name: 'A',
-        component: () => import('../components/A/index.vue')
+        component: () => import('../views/Index.vue')
     }
 ]
 const router = createRouter({
