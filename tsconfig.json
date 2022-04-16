@@ -10,7 +10,9 @@
       "resolveJsonModule": true,
       "esModuleInterop": true,
       "lib": ["esnext", "dom"],
-      // "types": ["element-plus/global"]
+      "allowSyntheticDefaultImports": true,
+      // "types": ["element-plus/global"],
+      "types": ["vite-plugin-svg-icons/client"]
     },
     "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
     "references": [{ "path": "./tsconfig.node.json" }]

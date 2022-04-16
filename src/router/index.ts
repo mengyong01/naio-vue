@@ -8,8 +8,13 @@ export const privateRoutes = [
 const publicRotues: Array<RouteRecordRaw> = [
     {
         path: '/',
-        name: 'A',
-        component: () => import('../views/Index.vue')
+        name: 'Home',
+        component: () => import('../views/home.vue') 
+    },
+    {
+        path: '/login',
+        name: 'Login',
+        component: () => import('../views/login/index.vue')
     }
 ]
 const router = createRouter({

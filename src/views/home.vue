@@ -1,5 +1,5 @@
 <template>
-        views/Index.vue
+        views/home.vue
 </template>
     
 <script setup lang='ts'>
