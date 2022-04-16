@@ -1,11 +1,13 @@
 import { defineStore } from 'pinia'
+import { login } from '../api/login'
 import { Keys } from './keys'
+import router from '../router'
 
 export const useUserStore = defineStore({
     id: Keys.USER,
     state: () => {
         return {
-            token: ''
+            token: localStorage.getItem('token') || ''
         }
     },
     // computed 修改state的值, 有缓存的
@@ -14,7 +16,20 @@ export const useUserStore = defineStore({
     },
     //既可以同步也可以异步，提交state
     actions: {
-        login() {
+        setToken(token: string) {
+            this.$state.token = token
+            localStorage.setItem('token', token)
+        },
+        login(userinfo:any){
+            return new Promise((resolve, reject)=>{
+                login(userinfo).then((res)=>{
+                    this.setToken(res.data.token)
+                    router.replace('/')
+                    resolve(res)
+                }).catch((err)=>{
+                    reject(err)
+                })
+            })
         }
     },
     // 开启数据缓存，此处使用了pinia-plugin-persist插件

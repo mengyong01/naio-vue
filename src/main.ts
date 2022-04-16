@@ -3,6 +3,9 @@ import App from './App.vue'
 import router from './router/index'
 import store from './store/index'
 
+// element-plus
+import 'element-plus/dist/index.css'
+
 // 初始化样式
 import './styles/index.less'
 // import './permission'

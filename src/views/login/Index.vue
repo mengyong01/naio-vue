@@ -1,6 +1,7 @@
 <template>
     <div class="login-container">
         <el-form class="login-form" 
+            ref="formRef"
             :model="loginForm"
             :rules="loginRules"
         >
@@ -29,7 +30,9 @@
                 </span>
             </el-form-item>
             <!-- 登录按钮 -->
-            <el-button type="primary" style="width: 100%;margin-bottom: 30px">登录</el-button>
+            <el-button type="primary" style="width: 100%;margin-bottom: 30px"
+            @click="handleLogin"
+            >登录</el-button>
         </el-form>
     </div>
 </template>
@@ -37,14 +40,16 @@
 <script setup lang='ts'>
 import SvgIcon from '../../components/SvgIcon/index.vue'
 import { validatePassword } from './rules'
+import { useUserStore } from '../../store/user'
+
 // el-form :model
 // el-form :rules
 // el-form-item :prop
-//保证以上三点即可为el-form添加表单校验功能
+// 保证以上三点即可为el-form添加表单校验功能
 
-//数据源
+// 数据源
 const loginForm = ref({
-    username: 'super-admin',
+    username: 'pzzrudlf',
     password: '123456'
 })
 // 验证规则
@@ -64,6 +69,29 @@ const loginRules = ref({
         }
     ]
 })
+
+// 登录方案:
+// 封装axios模块
+// 接口请求模块
+// 登录请求动作
+
+// token缓存
+// 登录鉴权
+
+
+const userStore = useUserStore()
+const formRef = ref(null)
+const handleLogin = ()=>{
+    formRef.value.validate((valid:boolean)=>{
+        if(valid){
+            const res = userStore.login(loginForm.value)
+            
+        }else{
+            console.log('error submit')
+            return false
+        }
+    })
+}
 </script>
     
 <style lang="less" scoped>
