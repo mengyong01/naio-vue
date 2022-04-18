@@ -5,7 +5,7 @@ import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
-import path from 'path'
+import { resolve} from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -21,7 +21,7 @@ export default defineConfig({
     }),
     createSvgIconsPlugin({
       // Specify the icon folder to be cached
-      iconDirs: [path.resolve(process.cwd(), 'src/icons/svg')],
+      iconDirs: [resolve(process.cwd(), 'src/icons/svg')],
       // Specify symbolId format
       symbolId: '[name]',
     })
@@ -36,6 +36,7 @@ export default defineConfig({
   server: {
     host: '0.0.0.0',
     port: 8080,
+    open: true,
     proxy: {
       // add proxy to fix cors
       // '/api': 'http://localhost:8088'
@@ -46,5 +47,13 @@ export default defineConfig({
         // rewrite: (path)=>path.replace(/^\/api/, ''),
       }
     }
+  },
+  resolve: {
+    alias: [
+      {
+        find: '@',
+        replacement: resolve(__dirname, 'src')
+      }
+    ]
   }
 })
