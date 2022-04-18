@@ -38,6 +38,7 @@
 </template>
     
 <script setup lang='ts'>
+import { ref } from 'vue'
 import SvgIcon from '../../components/SvgIcon/index.vue'
 import { validatePassword } from './rules'
 import { useUserStore } from '../../store/user'
@@ -85,7 +86,6 @@ const handleLogin = ()=>{
     formRef.value.validate((valid:boolean)=>{
         if(valid){
             const res = userStore.login(loginForm.value)
-            
         }else{
             console.log('error submit')
             return false

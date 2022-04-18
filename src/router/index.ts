@@ -9,7 +9,7 @@ const publicRotues: Array<RouteRecordRaw> = [
     {
         path: '/',
         name: 'Home',
-        component: () => import('../views/home.vue') 
+        component: () => import('../layout/Index.vue') 
     },
     {
         path: '/login',

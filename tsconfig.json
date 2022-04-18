@@ -12,7 +12,9 @@
       "lib": ["esnext", "dom"],
       "allowSyntheticDefaultImports": true,
       // "types": ["element-plus/global"],
-      "types": ["vite-plugin-svg-icons/client"]
+      "types": ["vite-plugin-svg-icons/client"],
+      // 解决用字符串做下标报错
+      "suppressImplicitAnyIndexErrors": true
     },
     "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
     "references": [{ "path": "./tsconfig.node.json" }]
