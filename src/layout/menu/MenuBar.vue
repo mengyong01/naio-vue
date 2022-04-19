@@ -66,7 +66,7 @@ let menuList = reactive([
                 alwaysShow: false,
                 name: "department",
                 meta: {
-                    title: "机构管理",
+                    title: "部门管理",
                     icon: "Platform",
                     roles: ["sys:dept"],
                     parentId: 17,

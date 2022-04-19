@@ -8,6 +8,7 @@ export interface ITab {
     title: string,
     path: string
 }
+
 export interface ICollapse {
     count: number,
     collapse: boolean

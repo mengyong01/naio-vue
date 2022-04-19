@@ -34,7 +34,7 @@
             align-items: center;
         }
         .main{
-            // background-color: lightblue;
+            padding-top: 0px;
         }
     }
 </style>

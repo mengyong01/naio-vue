@@ -1,15 +1,17 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosPromise, AxiosResponse } from "axios"
 import { ElMessage } from "element-plus"
-import { getToken } from "./auth"
+import { getToken } from "../utils/auth"
 import qs from 'qs'
+
 export interface Result<T = any> {
-    code: number;
+    error_code: number;
+    code: number; //将要废弃使用
     msg: string;
     data: T;
 }
-enum StatusCode {
-    NoAuth = 600, //token失效
-    Success = 200 //返回成功
+enum StatusCode{
+    NoAuth  = 40100, //token失效
+    Success = 0 //返回成功
 }
 class request {
     private instance: AxiosInstance;
@@ -45,13 +47,13 @@ class request {
         this.instance.interceptors.response.use((res: AxiosResponse) => {
             if (res && res.data) {
                 const data = res.data as any;
-                if (data.code == StatusCode.NoAuth) {
+                if (data.error_code == StatusCode.NoAuth) {
                     //清空sessionStorage数据
                     sessionStorage.clear();
                     //跳到登录
                     window.location.href = "/login";
                     // return res;
-                } else if (data.code == StatusCode.Success || res.config.responseType === "arraybuffer") {
+                } else if (data.error_code == StatusCode.Success || res.config.responseType === "arraybuffer") {
                     // return Promise.resolve(res);
                     return res;
                 } else { // 这里我们在服务端将正确返回的状态码标为200
@@ -124,6 +126,118 @@ class request {
             }
             // return Promise.reject(error)
             return error
+        })
+    }
+    getParms(parms: any): string {
+        let _params = "";
+        if (Object.is(parms, undefined || null)) {
+            _params = ''
+        } else {
+            for (const key in parms) {
+                if (parms.hasOwnProperty(key) && parms[key]) {
+                    _params += `${parms[key]}/`
+                }
+            }
+        }
+        //去掉参数最后一位/
+        if (_params) _params = _params.substr(0, _params.length - 1);
+        return _params;
+    }
+    /**
+     *  http://localhost:8089/api/user/getUserById?userId=10
+     * @param url   /api/user/getUserById
+     * @param parms  {userId:10}
+     * @returns 
+     */
+    get<T = any>(url: string, parms?: any): Promise<Result<T>> {
+        return new Promise((resolve, reject) => {
+            this.instance.get<T>(url, {
+                params: parms,
+                paramsSerializer: (parms) => {
+                    return qs.stringify(parms)
+                }
+            }).then((res) => {
+                resolve(res.data as any)
+            }).catch((error) => {
+                reject(error)
+            })
+        })
+    }
+    getRestApi<T = any>(url: string, parms?: any): Promise<Result<T>> {
+        return new Promise((resolve, reject) => {
+            this.instance.get<T>(this.getParms(parms) ? `${url}/${this.getParms(parms)}` : url)
+                .then((res) => {
+                    resolve(res.data as any)
+                }).catch((error) => {
+                    reject(error)
+                })
+        })
+    }
+
+    post<T = any>(url: string, parms: any): Promise<Result<T>> {
+        return new Promise((resolve, reject) => {
+            this.instance.post<T>(url, parms, {
+                transformRequest: [(params) => {
+                    return JSON.stringify(params)
+                }],
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then((res) => {
+                resolve(res.data as any)
+            }).catch((error) => {
+                reject(error)
+            })
+        })
+    }
+    put<T = any>(url: string, parms: any): Promise<Result<T>> {
+        return new Promise((resolve, reject) => {
+            this.instance.put<T>(url, parms, {
+                transformRequest: [(params) => {
+                    return JSON.stringify(params)
+                }],
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then((res) => {
+                resolve(res.data as any)
+            }).catch((error) => {
+                reject(error)
+            })
+        })
+    }
+    delete<T = any>(url: string, parms: any): Promise<Result<T>> {
+        return new Promise((resolve, reject) => {
+            this.instance.delete<T>(this.getParms(parms) ? `${url}/${this.getParms(parms)}` : url)
+                .then((res) => {
+                    resolve(res.data as any)
+                }).catch((error) => {
+                    reject(error)
+                })
+        })
+    }
+
+    login<T>(url: string, params: any): Promise<Result<T>> {
+        return new Promise((resolve, reject) => {
+            this.instance.post<T>(url, params, {
+                transformRequest: [(params) => {
+                    return JSON.stringify(params)
+                }],
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then((res) => {
+                console.log('res.data::', res.data)
+                resolve(res.data as any)
+            }).catch((error) => {
+                reject(error)
+            })
+        })
+    }
+    
+    getImage(url: string) {
+        return this.instance.post(url, null, {
+            responseType: 'arraybuffer'
         })
     }
 }

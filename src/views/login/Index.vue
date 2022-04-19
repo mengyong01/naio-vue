@@ -1,10 +1,6 @@
 <template>
     <div class="login-container">
-        <el-form class="login-form" 
-            ref="formRef"
-            :model="loginForm"
-            :rules="loginRules"
-        >
+        <el-form class="login-form" ref="formRef" :model="loginModel" :rules="loginRules" :inline="false">
             <div class="title-container">
                 <h3 class="title">用户登录</h3>
             </div>
@@ -13,35 +9,29 @@
                 <span class="svg-container">
                     <svg-icon name="user"></svg-icon>
                 </span>
-                <el-input placeholder="username" name="username" type="text" 
-                v-model="loginForm.username"
-                ></el-input>
+                <el-input placeholder="username" name="username" type="text" v-model="loginModel.username"></el-input>
             </el-form-item>
             <!-- password -->
             <el-form-item prop="password">
                 <span class="svg-container">
                     <svg-icon name="password"></svg-icon>
                 </span>
-                <el-input placeholder="password" name="password" tabindex="2" auto-complete="on" 
-                v-model="loginForm.password"
-                ></el-input>
+                <el-input placeholder="password" name="password" tabindex="2" auto-complete="on"
+                    v-model="loginModel.password"></el-input>
                 <span class="show-pwd">
                     <svg-icon name="eye"></svg-icon>
                 </span>
             </el-form-item>
             <!-- 登录按钮 -->
-            <el-button type="primary" style="width: 100%;margin-bottom: 30px"
-            @click="handleLogin"
-            >登录</el-button>
+            <el-button type="primary" style="width: 100%;margin-bottom: 30px" @click="login">登录</el-button>
         </el-form>
     </div>
 </template>
     
 <script setup lang='ts'>
-import { ref } from 'vue'
 import SvgIcon from '../../components/SvgIcon/index.vue'
-import { validatePassword } from './rules'
-import { useUserStore } from '../../store/user'
+import useBaseLogin from '../../composables/login/useBaseLogin'
+import useLogin from '../../composables/login/useLogin'
 
 // el-form :model
 // el-form :rules
@@ -49,27 +39,7 @@ import { useUserStore } from '../../store/user'
 // 保证以上三点即可为el-form添加表单校验功能
 
 // 数据源
-const loginForm = ref({
-    username: 'pzzrudlf',
-    password: '123456'
-})
-// 验证规则
-const loginRules = ref({
-    username: [
-        {
-            required: true,
-            trigger: 'blur',
-            message: '用户名必须填写'
-        }
-    ],
-    password: [
-        {
-            required: true,
-            trigger: 'blur',
-            validator: validatePassword()
-        }
-    ]
-})
+const { loginModel, loginRules, formRef } = useBaseLogin()
 
 // 登录方案:
 // 封装axios模块
@@ -79,19 +49,8 @@ const loginRules = ref({
 // token缓存
 // 登录鉴权
 
+const { login } = useLogin(loginModel)
 
-const userStore = useUserStore()
-const formRef = ref(null)
-const handleLogin = ()=>{
-    formRef.value.validate((valid:boolean)=>{
-        if(valid){
-            const res = userStore.login(loginForm.value)
-        }else{
-            console.log('error submit')
-            return false
-        }
-    })
-}
 </script>
     
 <style lang="less" scoped>
@@ -105,6 +64,7 @@ const handleLogin = ()=>{
     width: 100%;
     background-color: @bg;
     overflow: hidden;
+
     .login-form {
         position: relative;
         width: 520px;
@@ -112,16 +72,19 @@ const handleLogin = ()=>{
         padding: 160px 35px 0;
         margin: 0 auto;
         overflow: hidden;
+
         ::deep(.el-form-item) {
             border: 1px solid rgba(255, 255, 255, 0.1);
             background-color: rgba(0, 0, 0, 0.1);
             border-radius: 5px;
             color: #454545;
         }
+
         ::deep(.el-input) {
             display: inline-block;
             height: 47px;
             width: 85%;
+
             input {
                 background: transparent;
                 border: 0px;
@@ -134,6 +97,7 @@ const handleLogin = ()=>{
             }
         }
     }
+
     .svg-container {
         padding: 6px 5px 6px 15px;
         color: @dark_gray;
