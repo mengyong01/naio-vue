@@ -24,5 +24,6 @@ const changeIcon = ()=>{
   font-size: 22px;
   color: #303133;
   cursor: pointer;
+  margin-right: 15px;
 }
 </style>

@@ -1,10 +1,10 @@
 import { defineStore } from 'pinia'
 import { login } from '../api/login'
-import { Keys } from './keys'
+import { Types } from './types'
 import router from '../router'
 
 export const useUserStore = defineStore({
-    id: Keys.USER,
+    id: Types.USER,
     state: () => {
         return {
             token: localStorage.getItem('token') || ''
@@ -37,7 +37,7 @@ export const useUserStore = defineStore({
         enabled: true,
         strategies: [
             {
-                key: Keys.USER,
+                key: Types.USER,
                 storage: localStorage,
                 paths: ['token']
             }

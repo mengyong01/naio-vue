@@ -1,34 +1,30 @@
-import { InjectionKey } from "vue"
 import { defineStore, Store } from 'pinia'
-
-export interface State {
-    count: number,
-    collapse: boolean
-}
+import { ICollapse, Types } from './types'
 
 // export const key: InjectionKey<Store<State>> = Symbol()
 
 export const useCollapseStore = defineStore({
-    id: "collapse",
-    state:()=>{
-        return {
+    id: Types.COLLAPSE,
+    state: () => {
+        let data: ICollapse = {
             count: 0,
             collapse: false
         }
+        return data
     },
-    getters:{
-        getCount():number{
+    getters: {
+        getCount(): number {
             return this.count
         },
-        getCollapse():boolean {
+        getCollapse(): boolean {
             return this.collapse
         }
     },
     actions: {
-        setCount(count: number){
+        setCount(count: number) {
             this.$state.count = count
         },
-        setCollapse(collapse: boolean){
+        setCollapse(collapse: boolean) {
             this.$state.collapse = collapse
         }
     }
