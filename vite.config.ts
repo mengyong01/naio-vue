@@ -28,9 +28,7 @@ export default defineConfig({
   ],
   css: {
     preprocessorOptions: {
-      less: {
-
-      }
+      less: {}
     }
   },
   server: {

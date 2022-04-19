@@ -13,14 +13,10 @@ import './styles/index.less'
 // import './permission'
 
 // 引入svg注册脚本
-import 'virtual:svg-icons-register'
+// import 'virtual:svg-icons-register'
 
 const app = createApp(App)
 app.use(store).use(router)
-
-app.mount('#app')
-
-
 
 const Icon = (props: { icon: string }) => {
     const { icon } = props;
@@ -28,3 +24,5 @@ const Icon = (props: { icon: string }) => {
 };
 
 app.component('Icon', Icon)
+
+app.mount('#app')

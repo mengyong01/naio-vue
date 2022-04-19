@@ -1,11 +1,14 @@
 <template>
     <el-menu
-        default-active="2"
+        :default-active="activeIndex"
         class="el-menu-vertical-demo"
         :collapse="isCollapse"
+        @open="handleOpen"
+        @close="handleClose"
         background-color="#304156"
         text-color="#303133"
         unique-opened
+        router
     >
         <MenuItem :menuList='menuList'></MenuItem>
     </el-menu>
@@ -13,7 +16,27 @@
     
 <script setup lang='ts'>
 import MenuItem from './MenuItem.vue'
-import { ref,reactive } from 'vue'
+import { reactive,computed } from 'vue'
+import { useRoute } from 'vue-router'
+import { useCollapseStore } from '../../store/collapse'
+
+//控制菜单展开和关闭
+const collapseStore = useCollapseStore()
+const isCollapse = computed(()=>{
+    return collapseStore.getCollapse
+})
+const handleOpen = (key: string | number, keyPath: string) => {
+    console.log(key, keyPath)
+}
+const handleClose = (key: string | number, keyPath: string) => {
+    console.log(key, keyPath)
+}
+
+const route = useRoute()
+const activeIndex = computed(()=>{
+    const { path } = route
+    return path
+})
 //菜单数据
 let menuList = reactive([
     {
@@ -140,8 +163,8 @@ let menuList = reactive([
         ],
     },
 ]);
-//控制菜单展开和关闭
-const isCollapse = ref(false);
+
+
 </script>
     
 <style lang="less" scoped>
