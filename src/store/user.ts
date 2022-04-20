@@ -1,36 +1,47 @@
 import { defineStore } from 'pinia'
-import { loginApi } from '../api/user/user'
+import { loginApi, getInfoApi } from '../api/user/user'
 import { Types } from './types'
 import { LoginParm } from '../api/user/userModel'
 import { Result } from "../http/request"
-import { setToken, setUserId, setExpireTime } from '../utils/auth'
+import { setToken as baseSetToken, setUserId, setExpireTime, getToken } from '../utils/auth'
+
+
+export type UserState = {
+    token: string,
+    userId: string,
+    permissions: string[]
+}
 
 export const useUserStore = defineStore({
     id: Types.USER,
     state: () => {
-        return {
-            token: localStorage.getItem('token') || '',
-            userId: 0
+        let data: UserState = {
+            token: getToken() || '',
+            userId: '',
+            permissions: []
         }
+        return data
     },
     // computed 修改state的值, 有缓存的
     getters: {
-        getToken():string{
+        getToken(): string {
             return this.token
+        },
+        getPermissions():any[]{
+            return this.permissions
         }
     },
     //既可以同步也可以异步，提交state
     actions: {
         setToken(token: string) {
             this.$state.token = token
-            localStorage.setItem('token', token)
         },
-        setUserId(userId:number){
+        setUserId(userId: string) {
             this.$state.userId = userId
         },
-        login(userinfo:LoginParm){
-            return new Promise<Result>((resolve, reject)=>{
-                loginApi(userinfo).then((res)=>{
+        login(userinfo: LoginParm) {
+            return new Promise<Result>((resolve, reject) => {
+                loginApi(userinfo).then((res) => {
                     // debugger
                     // res::
                     // {
@@ -40,19 +51,38 @@ export const useUserStore = defineStore({
                     //     token_type:
                     //     msg: 'ok'
                     // }
-                    if(res.error_code == 0) {
-                        this.setToken(res.data.access_token)
-                        this.setUserId(1)
+                    if (res.data.code == 200) {
+                        // debugger
+                        // 设置到pinia中
+                        this.setToken(res.data.token)
+                        this.setUserId((res.data.id).toString())
 
-                        setToken(res.data.access_token)
-                        setUserId(1)
-                        setExpireTime(res.data.expires_in)
+                        //存储到sessionStorage
+                        baseSetToken(res.data.token)
+                        setUserId(res.data.id)
+                        setExpireTime(res.data.expireTime)
                     }
                     resolve(res)
-                }).catch((err)=>{
+                }).catch((err) => {
                     reject(err)
                 })
             })
+        },
+        //获取用户信息
+        getInfo() {
+            return new Promise((resolve, reject) => {
+                getInfoApi().then(res => {
+                    // debugger
+                    //设置权限
+                    this.setPermissions(res.data.roles)
+                    resolve(res.data)
+                }).catch((error) => {
+                    reject(error)
+                })
+            })
+        },
+        setPermissions(roles:any[]){
+            this.$state.permissions = roles
         }
     },
     // 开启数据缓存，此处使用了pinia-plugin-persist插件

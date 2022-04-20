@@ -6,6 +6,30 @@ export const privateRoutes = [
 
 ]
 
+export const constantRoutes: Array<RouteRecordRaw> = [
+    {
+        path: '/',
+        component: Layout,
+        redirect: '/dashboard',
+        children: [
+            {
+                path: '/dashboard',
+                component: () => import('@/layout/dashboard/Index.vue'),
+                name: 'dashboard',
+                meta: {
+                    title: '首页',
+                    icon: 'HomeFilled'
+                }
+            }
+        ]
+    },
+    {
+        path: '/login',
+        name: 'login',
+        component: () => import('../views/login/index.vue')
+    }
+]
+
 const publicRotues: Array<RouteRecordRaw> = [
     {
         path: '/',
@@ -122,19 +146,19 @@ const publicRotues: Array<RouteRecordRaw> = [
     },
     {
         path: '/',
-        name: 'Home',
+        name: 'home',
         component: () => import('../layout/Index.vue') 
     },
     {
         path: '/login',
-        name: 'Login',
+        name: 'login',
         component: () => import('../views/login/index.vue')
     }
 ]
 
 const router = createRouter({
     history: createWebHashHistory(),
-    routes: publicRotues
+    routes: constantRoutes
 })
 
 export default router

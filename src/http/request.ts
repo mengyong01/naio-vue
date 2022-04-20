@@ -10,8 +10,10 @@ export interface Result<T = any> {
     data: T;
 }
 enum StatusCode{
-    NoAuth  = 40100, //token失效
-    Success = 0 //返回成功
+    // NoAuth  = 40100, //token失效
+    NoAuth  = 600, //token失效
+    // Success = 0 //返回成功
+    Success = 200 //返回成功
 }
 class request {
     private instance: AxiosInstance;
@@ -47,13 +49,13 @@ class request {
         this.instance.interceptors.response.use((res: AxiosResponse) => {
             if (res && res.data) {
                 const data = res.data as any;
-                if (data.error_code == StatusCode.NoAuth) {
+                if (data.code == StatusCode.NoAuth) {
                     //清空sessionStorage数据
                     sessionStorage.clear();
                     //跳到登录
                     window.location.href = "/login";
                     // return res;
-                } else if (data.error_code == StatusCode.Success || res.config.responseType === "arraybuffer") {
+                } else if (data.code == StatusCode.Success || res.config.responseType === "arraybuffer") {
                     // return Promise.resolve(res);
                     return res;
                 } else { // 这里我们在服务端将正确返回的状态码标为200
@@ -217,18 +219,17 @@ class request {
         })
     }
 
-    login<T>(url: string, params: any): Promise<Result<T>> {
+    login<T = any>(url: string, params: any): Promise<Result<T>> {
         return new Promise((resolve, reject) => {
             this.instance.post<T>(url, params, {
                 transformRequest: [(params) => {
-                    return JSON.stringify(params)
+                    return qs.stringify(params)
                 }],
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/x-www-form-urlencoded'
                 }
             }).then((res) => {
-                console.log('res.data::', res.data)
-                resolve(res.data as any)
+                resolve(res as any)
             }).catch((error) => {
                 reject(error)
             })
@@ -240,5 +241,6 @@ class request {
             responseType: 'arraybuffer'
         })
     }
+
 }
 export default request

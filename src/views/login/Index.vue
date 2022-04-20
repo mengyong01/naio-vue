@@ -22,6 +22,17 @@
                     <svg-icon name="eye"></svg-icon>
                 </span>
             </el-form-item>
+            <el-form-item prop='code'>
+                <el-row :gutter="20">
+                    <el-col :span="16">
+                        <el-input placeholder="请输入验证码" v-model="loginModel.code"></el-input>
+                    </el-col>
+                    <el-col :span="8">
+                        <!-- <el-input placeholder="请输入验证码" v-model="loginModel.code"></el-input> -->
+                        <img :src='imgSrc' @click="getImage" />
+                    </el-col>
+                </el-row>
+            </el-form-item>
             <!-- 登录按钮 -->
             <el-button type="primary" style="width: 100%;margin-bottom: 30px" @click="login">登录</el-button>
         </el-form>
@@ -32,12 +43,15 @@
 import SvgIcon from '../../components/SvgIcon/index.vue'
 import useBaseLogin from '../../composables/login/useBaseLogin'
 import useLogin from '../../composables/login/useLogin'
+import useImage from '../../composables/login/useImage'
 
 // el-form :model
 // el-form :rules
 // el-form-item :prop
 // 保证以上三点即可为el-form添加表单校验功能
 
+// 验证码
+const { imgSrc, getImage } = useImage()
 // 数据源
 const { loginModel, loginRules, formRef } = useBaseLogin()
 

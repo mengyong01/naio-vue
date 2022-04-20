@@ -11,10 +11,13 @@ export default function useLogin(loginModel: LoginParm) {
     const login = () => {
         proxy.$refs.formRef.validate(async (valid: boolean) => {
             if (valid) {
+                debugger
                 userStore.login(loginModel).then(res=>{
-                    if(res.error_code == 0){
-                        router.push({path: '/'})
-                    }
+                    debugger
+                    if(res.data.code == 200) router.push({path:'/'})
+                    // if(res.error_code == 0){
+                    //     router.push({path: '/'})
+                    // }
                 })
             }
         })

@@ -24,3 +24,7 @@ export const setExpireTime = (time:number)=>{
 export const getExpireTime = ()=>{
     return sessionStorage.getItem(Keys.ExpireTime)
 }
+//session清空
+export const cleanSession = () =>{
+    sessionStorage.clear()
+}
