@@ -1,49 +1,45 @@
 import router from './router'
 import { useUserStore } from './store/user'
+import { useMenuStore } from './store/menu'
+import { getToken, cleanSession} from './utils/auth'
 
+const whiteList = ['/login'];
 const userStore = useUserStore()
-// 白名单
-const whiteList = ['/login']
-/**
- * 路由前置守卫
- */
+const menuStore = useMenuStore()
 router.beforeEach(async (to, from, next) => {
-  // 存在 token ，进入主页
-  // if (store.state.user.token) {
-  // 快捷访问
-  if (userStore.token) {
-    if (to.path === '/login') {
-      next('/')
-    } else {
-      
-      /*
-      // 判断用户资料是否获取
-      // 若不存在用户信息，则需要获取用户信息
-      if (!store.getters.hasUserInfo) {
-        // 触发获取用户信息的 action，并获取用户当前权限
-        const { permission } = await store.dispatch('user/getUserInfo')
-        // 处理用户权限，筛选出需要添加的权限
-        const filterRoutes = await store.dispatch(
-          'permission/filterRoutes',
-          permission.menus
-        )
-        console.log(filterRoutes)
-        // 利用 addRoute 循环添加
-        filterRoutes.forEach(item => {
-          router.addRoute(item)
-        })
-        // 添加完动态路由之后，需要在进行一次主动跳转
-        return next(to.path)
-      }
-      */
-      next()
+    let token = getToken();
+    if (token) { //token存在
+        if (to.path === "/login" || to.path === "/") {
+            next({ path: '/' })
+        } else {
+            console.log(userStore.$state)
+            let hasRoles = userStore.$state.permissions && userStore.$state.permissions.length > 0;
+            if (hasRoles) {
+                next();
+            } else {
+                try {
+                    // debugger
+                    await userStore.getInfo()
+                    // debugger
+                    await menuStore.getMenuListActions(router)
+                    
+                    //确保动态添加的路由已经被完全加载上去
+                    next({ ...to, replace: true })
+                } catch (error) {
+                    //重置token
+                    cleanSession();
+                    //跳到登录
+                    next({ path: '/login' })
+                }
+
+            }
+        }
+    } else { //token不存在 , 跳转的时候，需要注意 BredCum.vue里面判断first
+        //判断是否存在白名单中
+        if (whiteList.indexOf(to.path) !== -1) { //存在白名单中
+            next();
+        } else { //不存在白名单中,去登录
+            next({ path: '/login' })
+        }
     }
-  } else {
-    // 没有token的情况下，可以进入白名单
-    if (whiteList.indexOf(to.path) > -1) {
-      next()
-    } else {
-      next('/login')
-    }
-  }
 })
