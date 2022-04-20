@@ -15,7 +15,6 @@ export async function loginApi(params: LoginParm) {
         mobile: params.username,
         password: params.password
     }
-    debugger
     return await http.login<LoginResult>(Api.login, params)
 }
 

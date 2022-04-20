@@ -52,7 +52,6 @@ export const useUserStore = defineStore({
                     //     msg: 'ok'
                     // }
                     if (res.data.code == 200) {
-                        // debugger
                         // 设置到pinia中
                         this.setToken(res.data.token)
                         this.setUserId((res.data.id).toString())
@@ -72,7 +71,6 @@ export const useUserStore = defineStore({
         getInfo() {
             return new Promise((resolve, reject) => {
                 getInfoApi().then(res => {
-                    // debugger
                     //设置权限
                     this.setPermissions(res.data.roles)
                     resolve(res.data)
@@ -86,14 +84,14 @@ export const useUserStore = defineStore({
         }
     },
     // 开启数据缓存，此处使用了pinia-plugin-persist插件
-    persist: {
-        enabled: true,
-        strategies: [
-            {
-                key: Types.USER,
-                storage: localStorage,
-                paths: ['token']
-            }
-        ]
-    }
+    // persist: {
+    //     enabled: true,
+    //     strategies: [
+    //         {
+    //             key: Types.USER,
+    //             storage: localStorage,
+    //             paths: ['token']
+    //         }
+    //     ]
+    // }
 })

@@ -42,7 +42,6 @@ export const useMenuStore = defineStore({
             return new Promise((resolve, reject) => {
                 //存的是有权限的路由，是一个数组
                 getMenuListApi().then(res => {
-                    // console.log(res)
                     let accessedRoutes:RouteRecordRaw[]=[];
                     if (res.code == 200) {
                         accessedRoutes = filterAsyncRoutes(res.data, router)
