@@ -1,5 +1,5 @@
 import http from '../../http/http'
-import { ListParam } from './DeptModel'
+import { ListParam } from './deptModel'
 
 enum Api {
     getDeptList = '/api/department/list'

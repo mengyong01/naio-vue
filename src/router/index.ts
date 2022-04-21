@@ -6,30 +6,6 @@ export const privateRoutes = [
 
 ]
 
-export const constantRoutes: Array<RouteRecordRaw> = [
-    {
-        path: '/',
-        component: Layout,
-        redirect: '/dashboard',
-        children: [
-            {
-                path: '/dashboard',
-                component: () => import('@/layout/dashboard/Index.vue'),
-                name: 'dashboard',
-                meta: {
-                    title: '首页',
-                    icon: 'HomeFilled'
-                }
-            }
-        ]
-    },
-    {
-        path: '/login',
-        name: 'login',
-        component: () => import('../views/login/index.vue')
-    }
-]
-
 const publicRotues: Array<RouteRecordRaw> = [
     {
         path: '/',
@@ -70,7 +46,7 @@ const publicRotues: Array<RouteRecordRaw> = [
             },
             {
                 path: "/userList",
-                component: () => import('@/views/system/User/UserList.vue'),
+                component: () => import('@/views/system/user/userList.vue'),
                 name: "userList",
                 meta: {
                     title: "用户管理",
@@ -80,7 +56,7 @@ const publicRotues: Array<RouteRecordRaw> = [
             },
             {
                 path: "/roleList",
-                component: () => import('@/views/system/Role/RoleList.vue'),
+                component: () => import('@/views/system/role/roleList.vue'),
                 name: "roleList",
                 meta: {
                     title: "角色管理",
@@ -90,7 +66,7 @@ const publicRotues: Array<RouteRecordRaw> = [
             },
             {
                 path: "/menuList",
-                component: () => import('@/views/system/Menu/MenuList.vue'),
+                component: () => import('@/views/system/menu/menuList.vue'),
                 name: "menuList",
                 meta: {
                     title: "权限管理",
@@ -148,6 +124,30 @@ const publicRotues: Array<RouteRecordRaw> = [
         path: '/',
         name: 'home',
         component: () => import('../layout/Index.vue') 
+    },
+    {
+        path: '/login',
+        name: 'login',
+        component: () => import('../views/login/index.vue')
+    }
+]
+
+export const constantRoutes: Array<RouteRecordRaw> = [
+    {
+        path: '/',
+        component: Layout,
+        redirect: '/dashboard',
+        children: [
+            {
+                path: '/dashboard',
+                component: () => import('@/layout/dashboard/Index.vue'),
+                name: 'dashboard',
+                meta: {
+                    title: '首页',
+                    icon: 'HomeFilled'
+                }
+            }
+        ]
     },
     {
         path: '/login',

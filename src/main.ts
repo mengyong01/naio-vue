@@ -3,8 +3,6 @@ import App from './App.vue'
 import router from './router/index'
 import store from './store/index'
 import * as Icons from '@element-plus/icons-vue'
-
-
 import { useUserStore } from './store/user'
 import { useMenuStore } from './store/menu'
 import { getToken, cleanSession} from './utils/auth'
@@ -17,15 +15,11 @@ import 'element-plus/dist/index.css'
 import './styles/index.less'
 // import { getToken, cleanSession} from './utils/auth'
 
-
 // 引入svg注册脚本
 // import 'virtual:svg-icons-register'
 
 const app = createApp(App)
 app.use(store).use(router)
-
-// 权限验证
-// import './permission'
 
 // Ico全局组件
 const Icon = (props: { icon: string }) => {
@@ -62,7 +56,6 @@ router.beforeEach(async (to, from, next) => {
                     //跳到登录
                     next({ path: '/login' })
                 }
-
             }
         }
     } else { //token不存在 , 跳转的时候，需要注意 BredCum.vue里面判断first

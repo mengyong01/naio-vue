@@ -21,6 +21,7 @@ export function filterAsyncRoutes(routes: RouteRecordRaw[], router: any) {
             if (component == 'Layout') {
                 tmp.component = Layout;
             } else {
+                console.log(component)
                 tmp.component = modules[`../../views${component}.vue`]
             }
         }
@@ -28,6 +29,7 @@ export function filterAsyncRoutes(routes: RouteRecordRaw[], router: any) {
         if (tmp.children) {
             tmp.children = filterAsyncRoutes(tmp.children, router)
         }
+        console.log(tmp)
         router.addRoute(tmp)
         res.push(tmp)
     })

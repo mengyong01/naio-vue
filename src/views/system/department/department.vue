@@ -1,14 +1,14 @@
 <template>
     <el-main>
         <!-- 搜索栏 -->
-        <el-form :model="searchFrom" :rules="rules" label-width="80px" :inline="true" size="small">
+        <el-form :model="searchForm" :rules="rules" label-width="80px" :inline="true" size="small">
             <el-form-item>
-                <el-input v-model="searchFrom.searchName" placeholder="请输入部门名称"></el-input>
+                <el-input v-model="searchForm.searchName" placeholder="请输入部门名称"></el-input>
             </el-form-item>
             <el-form-item>
                 <el-button :icon="Search">查询</el-button>
                 <!-- <el-button type="primary" :icon='Plus'>新增</el-button> -->
-                <el-button size="mini" type='primary' :icon="Plus">新增</el-button>
+                <el-button size="small" type='primary' :icon="Plus">新增</el-button>
             </el-form-item>
         </el-form>
         <!-- 表格 -->
@@ -26,9 +26,9 @@
             <el-table-column prop="deptPhone" label="部门电话" />
             <el-table-column width='200' align='center' label="操作">
                 <template #default="scope">
-                    <el-button size="mini" type='success' :icon="Edit">编辑</el-button>
+                    <el-button size="small" type='success' :icon="Edit">编辑</el-button>
                     <el-button
-                        size="mini"
+                        size="small"
                         type="danger"
                         :icon='Close'
                     >删除</el-button>
@@ -45,5 +45,5 @@ import useDeptTable from '../../../composables/department/useDeptTable'
 //基础数据
 const { rules } = useBaseModel();
 //表格列表
-const { searchFrom, tableData, getDeptList } = useDeptTable();
+const { searchForm, tableData, getDeptList } = useDeptTable();
 </script>

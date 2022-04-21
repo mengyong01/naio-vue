@@ -44,6 +44,8 @@ const menuStore = useMenuStore()
 const menuList = computed(() =>{
     return menuStore.getMenuList
 })
+
+// console.log(menuList)
 //菜单数据
 // let menuList = reactive([
 //     {

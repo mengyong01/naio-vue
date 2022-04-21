@@ -1,5 +1,5 @@
 <template>
-  首页
+  dashboard/Index.vue
 </template>
 <script setup lang='ts'>
 import { ref,reactive} from 'vue'
