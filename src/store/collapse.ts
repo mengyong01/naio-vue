@@ -1,7 +1,5 @@
-import { defineStore, Store } from 'pinia'
+import { defineStore } from 'pinia'
 import { ICollapse, Types } from './types'
-
-// export const key: InjectionKey<Store<State>> = Symbol()
 
 export const useCollapseStore = defineStore({
     id: Types.COLLAPSE,

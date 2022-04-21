@@ -1,7 +1,7 @@
 import {reactive,ref} from 'vue'
 import { ElForm } from 'element-plus';
 import { LoginParm } from '../../api/user/userModel'
-import { validatePassword } from '../../views/login/rules'
+import { validatePassword } from '../../utils/validator'
 
 export default function useBaseLogin(){
     //登录表单ref
