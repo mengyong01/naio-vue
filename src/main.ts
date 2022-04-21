@@ -24,26 +24,26 @@ app.use(store).use(router)
 // Ico全局组件
 const Icon = (props: { icon: string }) => {
     const { icon } = props;
-    return createVNode(Icons[icon as keyof typeof Icons]);
+    return createVNode(Icons[icon as keyof typeof Icons])
 };
 app.component('Icon', Icon)
 
 app.mount('#app')
 
 // 权限验证
-const whiteList = ['/login'];
+const whiteList = ['/login']
 const userStore = useUserStore()
 const menuStore = useMenuStore()
 router.beforeEach(async (to, from, next) => {
-    let token = getToken();
+    let token = getToken()
     if (token) { //token存在
         if (to.path === "/login" || to.path === "/") {
             next({ path: '/' })
         } else {
             console.log(userStore.$state)
-            let hasRoles = userStore.$state.permissions && userStore.$state.permissions.length > 0;
+            let hasRoles = userStore.$state.permissions && userStore.$state.permissions.length > 0
             if (hasRoles) {
-                next();
+                next()
             } else {
                 try {
                     await userStore.getInfo()
@@ -52,7 +52,7 @@ router.beforeEach(async (to, from, next) => {
                     next({ ...to, replace: true })
                 } catch (error) {
                     //重置token
-                    cleanSession();
+                    cleanSession()
                     //跳到登录
                     next({ path: '/login' })
                 }
@@ -61,7 +61,7 @@ router.beforeEach(async (to, from, next) => {
     } else { //token不存在 , 跳转的时候，需要注意 BredCum.vue里面判断first
         //判断是否存在白名单中
         if (whiteList.indexOf(to.path) !== -1) { //存在白名单中
-            next();
+            next()
         } else { //不存在白名单中,去登录
             next({ path: '/login' })
         }
