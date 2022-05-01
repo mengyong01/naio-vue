@@ -1,33 +1,32 @@
 import { defineStore } from 'pinia'
-import { loginApi, getInfoApi } from '../api/user/user'
+import { loginApi, getInfoApi } from '@/api/user/user'
 import { Types } from './types'
-import { LoginParm } from '../api/user/userModel'
-import { Result } from "../http/request"
-import { setToken as baseSetToken, setUserId, setExpireTime, getToken } from '../utils/auth'
+import { LoginParm } from '@/api/user/userModel'
+import { Result } from '@/http/request'
+import { setToken as baseSetToken, setUserId, setExpireTime, getToken } from '@/utils/auth'
 
 
 export type UserState = {
     token: string,
-    userId: string,
+    userId: string | number,
     permissions: string[]
 }
 
 export const useUserStore = defineStore({
     id: Types.USER,
-    state: () => {
-        let data: UserState = {
+    state: (): UserState => {
+        return {
             token: getToken() || '',
             userId: '',
             permissions: []
         }
-        return data
     },
     // computed 修改state的值, 有缓存的
     getters: {
         getToken(): string {
             return this.token
         },
-        getPermissions():any[]{
+        getPermissions(): any[] {
             return this.permissions
         }
     },
@@ -36,7 +35,7 @@ export const useUserStore = defineStore({
         setToken(token: string) {
             this.$state.token = token
         },
-        setUserId(userId: string) {
+        setUserId(userId: string | number) {
             this.$state.userId = userId
         },
         login(userinfo: LoginParm) {
@@ -54,7 +53,7 @@ export const useUserStore = defineStore({
                     if (res.data.code == 200) {
                         // 设置到pinia中
                         this.setToken(res.data.token)
-                        this.setUserId((res.data.id).toString())
+                        this.setUserId((res.data.id))
 
                         //存储到sessionStorage
                         baseSetToken(res.data.token)
@@ -72,14 +71,16 @@ export const useUserStore = defineStore({
             return new Promise((resolve, reject) => {
                 getInfoApi().then(res => {
                     //设置权限
-                    this.setPermissions(res.data.roles)
+                    if (res.code == 200) {
+                        this.setRoles(res.data.roles)
+                    }
                     resolve(res.data)
                 }).catch((error) => {
                     reject(error)
                 })
             })
         },
-        setPermissions(roles:any[]){
+        setRoles(roles: any[]) {
             this.$state.permissions = roles
         }
     },

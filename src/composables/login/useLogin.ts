@@ -1,7 +1,7 @@
 import { getCurrentInstance } from 'vue'
-import { LoginParm } from "../../api/user/userModel"
-import router from '../../router'
-import { useUserStore } from '../../store/user'
+import { LoginParm } from '@/api/user/userModel'
+import router from '@/router'
+import { useUserStore } from '@/store/user'
 
 const userStore = useUserStore()
 

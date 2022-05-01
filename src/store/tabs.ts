@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import { ITab, Types } from './types'
 
 export const useTabsStore = defineStore({
-    id: Types.TAB,
+    id: Types.TABS,
     state: () => {
         let data: ITab[] = []
         return {

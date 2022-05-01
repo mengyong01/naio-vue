@@ -1,5 +1,5 @@
 <template>
-    <el-dialog v-model="visible" :title="title" :before-close="onClose" append-to-body :width="width + 'px'">
+    <el-dialog :model-value="visible" :title="title" :before-close="onClose" append-to-body :width="width + 'px'">
         <div class="container" :style="{ height: height + 'px' }">
             <slot name="content" :item="'pzzrudlf'"></slot>
         </div>
@@ -12,7 +12,7 @@
     </el-dialog>
 </template>
 <script setup lang='ts'>
-import { defineProps, defineEmits } from 'vue'
+// import { defineProps, defineEmits } from 'vue'
 const props = defineProps({
     title: {
         type: String,

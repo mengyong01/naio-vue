@@ -1,18 +1,18 @@
 import { createApp, createVNode } from 'vue'
-import App from './App.vue'
-import router from './router/index'
-import store from './store/index'
+import App from '@/App.vue'
+import router from '@/router/index'
+import store from '@/store/index'
 import * as Icons from '@element-plus/icons-vue'
-import { useUserStore } from './store/user'
-import { useMenuStore } from './store/menu'
-import { getToken, cleanSession} from './utils/auth'
+import { useUserStore } from '@/store/user'
+import { useMenuStore } from '@/store/menu'
+import { getToken, cleanSession} from '@/utils/auth'
 
 // element-plus
 // import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 
 // 初始化样式
-import './styles/index.less'
+import '@/styles/index.less'
 // import { getToken, cleanSession} from './utils/auth'
 
 // 引入svg注册脚本
@@ -32,12 +32,13 @@ app.mount('#app')
 
 // 权限验证
 const whiteList = ['/login']
-const userStore = useUserStore()
-const menuStore = useMenuStore()
 router.beforeEach(async (to, from, next) => {
+    //必须放beforeEach中
+    const userStore = useUserStore()
+    const menuStore = useMenuStore()
     let token = getToken()
     if (token) { //token存在
-        if (to.path === "/login" || to.path === "/") {
+        if (to.path === '/login' || to.path === '/') {
             next({ path: '/' })
         } else {
             console.log(userStore.$state)

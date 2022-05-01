@@ -2,7 +2,8 @@
     "compilerOptions": {
       "target": "esnext",
       "useDefineForClassFields": true,
-      "composite": true,
+      "composite": false,
+      "incremental": false,
       "module": "esnext",
       "moduleResolution": "node",
       "strict": true,

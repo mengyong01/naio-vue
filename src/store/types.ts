@@ -1,7 +1,8 @@
 export const enum Types {
-    USER = 'user',
-    TAB = 'tab',
-    COLLAPSE = 'collapse',
+    USER = 'userStore',
+    TABS = 'tabsStore',
+    COLLAPSE = 'collapseStore',
+    MENU = 'menuStore'
 }
 
 export interface ITab {

@@ -2,6 +2,7 @@ import { reactive } from 'vue'
 import { DialogModel } from '@/utils/baseType'
 
 export default function useDialog() {
+    
     const dialog = reactive<DialogModel>({
         title: '',
         visible: false,

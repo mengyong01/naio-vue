@@ -30,6 +30,7 @@ export default defineConfig({
     host: '0.0.0.0',
     port: 8080,
     open: true,
+    hmr: true,
     proxy: {
       // add proxy to fix cors
       // '/api': 'http://localhost:8088'

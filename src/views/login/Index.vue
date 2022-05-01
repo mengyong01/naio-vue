@@ -79,6 +79,9 @@ const { login } = useLogin(loginModel)
     background-color: @bg;
     overflow: hidden;
 
+    display: flex;
+    justify-content: center;
+    align-items: center;
     .login-form {
         position: relative;
         width: 520px;
@@ -140,5 +143,8 @@ const { login } = useLogin(loginModel)
         cursor: pointer;
         user-select: none;
     }
+}
+:deep(.el-row) {
+    width: 100% !important;
 }
 </style>
