@@ -4,24 +4,26 @@ import { EditType } from '@/utils/baseEnum'
 
 export default function useDept() {
 
-    const addDeptRef = ref<{ show: (type: string) => void }>();
+    const addAndEditDeptRef = ref<{ show: (type: string) => void }>()
     //搜索
     const searchBtn = () => {
-
+        console.log('searchBtn func')
     }
     //新增
     const addBtn = () => {
-        addDeptRef.value?.show(EditType.ADD);
+        console.log('addBtn')
+        addAndEditDeptRef.value?.show(EditType.ADD);
     }
     //编辑
     const editBtn = (row: DeptModel) => {
-        addDeptRef.value?.show(EditType.EDIT)
+        console.log('editBtn func')
+        addAndEditDeptRef.value?.show(EditType.EDIT)
     }
     //删除
     const deleteBtn = (row: DeptModel) => {
-
+        console.log('deleteBtn func')
     }
-    //保存
+    //保存（新增、编辑）
     const save = (model: AddDeptModel) => {
         console.log('保存')
         console.log(model)
@@ -31,7 +33,7 @@ export default function useDept() {
         addBtn,
         editBtn,
         deleteBtn,
-        addDeptRef,
+        addAndEditDeptRef,
         save
     }
 }

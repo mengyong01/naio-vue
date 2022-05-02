@@ -1,3 +1,4 @@
+//搜索关键字
 export interface ListParam {
     searchName: string
 }
@@ -16,7 +17,7 @@ export interface DeptModel {
     open: boolean;
     children: any
 }
-//表单提交的数据类型
+//新增、编辑 表单提交的数据类型
 export interface AddDeptModel {
     type: string;
     id: string | number;

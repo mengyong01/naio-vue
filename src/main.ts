@@ -15,11 +15,21 @@ import 'element-plus/dist/index.css'
 import '@/styles/index.less'
 // import { getToken, cleanSession} from './utils/auth'
 
+// 引入echarts
+import * as echarts from 'echarts'
+
 // 引入svg注册脚本
 // import 'virtual:svg-icons-register'
 
 const app = createApp(App)
 app.use(store).use(router)
+
+// permission
+import { permission } from '@/directives/permission'
+app.directive('permission', permission)
+
+// 挂载工具
+app.config.globalProperties.$echarts = echarts
 
 // Ico全局组件
 const Icon = (props: { icon: string }) => {
@@ -27,6 +37,10 @@ const Icon = (props: { icon: string }) => {
     return createVNode(Icons[icon as keyof typeof Icons])
 };
 app.component('Icon', Icon)
+
+// Object.keys(Icons).forEach((key)=>{
+//     app.component(key, Icons[key as keyof typeof Icons])
+// })
 
 app.mount('#app')
 

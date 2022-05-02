@@ -6,44 +6,37 @@
                 <el-input v-model="searchForm.searchName" placeholder="请输入部门名称"></el-input>
             </el-form-item>
             <el-form-item>
-                <el-button :icon="Search">查询</el-button>
+                <el-button :icon="Search" @click="searchBtn">查询</el-button>
                 <!-- <el-button type="primary" :icon='Plus'>新增</el-button> -->
-                <el-button size="small" type='primary' :icon="Plus">新增</el-button>
+                <el-button size="small" type='primary' :icon="Plus" @click="addBtn">新增</el-button>
             </el-form-item>
         </el-form>
         <!-- 表格 -->
-        <el-table
-            :data="tableData.list"
-            style="width: 100%"
-            row-key="id"
-            default-expand-all
-            size="medium"
-            border
-            :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
-        >
+        <el-table :data="tableData.list" style="width: 100%" row-key="id" default-expand-all size="medium" border
+            :tree-props="{ children: 'children', hasChildren: 'hasChildren' }">
             <el-table-column prop="name" label="部门名称" />
             <el-table-column prop="deptCode" label="部门编码" />
             <el-table-column prop="deptPhone" label="部门电话" />
             <el-table-column width='200' align='center' label="操作">
                 <template #default="scope">
-                    <el-button size="small" type='success' :icon="Edit">编辑</el-button>
-                    <el-button
-                        size="small"
-                        type="danger"
-                        :icon='Close'
-                    >删除</el-button>
+                    <el-button size="small" type="success" :icon="Edit" @click="editBtn(scope.row)">编辑</el-button>
+                    <el-button size="small" type="danger" :icon="Close" @click="deleteBtn(scope.row)">删除</el-button>
                 </template>
             </el-table-column>
         </el-table>
     </el-main>
+    <AddAndEdit ref="addAndEditDeptRef"></AddAndEdit>
 </template>
 <script setup lang="ts">
-import { Edit, Close, Plus, Search} from '@element-plus/icons-vue'
-import useBaseModel from '../../../composables/department/useBaseModel'
-import useDeptTable from '../../../composables/department/useDeptTable'
-
+import { Edit, Close, Plus, Search } from '@element-plus/icons-vue'
+import useBaseModel from '@/composables/department/useBaseModel'
+import useDeptTable from '@/composables/department/useDeptTable'
+import useDept from '@/composables/department/useDept'
+import AddAndEdit from './AddAndEdit.vue'
 //基础数据
-const { rules } = useBaseModel();
+const { rules } = useBaseModel()
 //表格列表
-const { searchForm, tableData, getDeptList } = useDeptTable();
+const { searchForm, tableData, getDeptList } = useDeptTable()
+// 表格的操作 搜索、新增、编辑、删除
+const { searchBtn, addBtn, editBtn, deleteBtn, save } = useDept()
 </script>

@@ -9,7 +9,7 @@ export default function useBaseModel() {
     const rules = reactive({})
 
     //表单绑定的数据
-    const dialog = reactive<AddDeptModel>({
+    const dialogModel = reactive<AddDeptModel>({
         type: '',
         id: '',
         pid: '',
@@ -24,6 +24,6 @@ export default function useBaseModel() {
 
     return {
         rules,
-        dialog
+        dialogModel
     }
 }
