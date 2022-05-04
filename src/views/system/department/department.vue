@@ -7,7 +7,6 @@
             </el-form-item>
             <el-form-item>
                 <el-button :icon="Search" @click="searchBtn">查询</el-button>
-                <!-- <el-button type="primary" :icon='Plus'>新增</el-button> -->
                 <el-button size="small" type='primary' :icon="Plus" @click="addBtn">新增</el-button>
             </el-form-item>
         </el-form>
@@ -25,18 +24,19 @@
             </el-table-column>
         </el-table>
     </el-main>
-    <AddAndEdit ref="addAndEditDeptRef"></AddAndEdit>
+    <addAndEdit ref="addAndEditDeptRef" @save="save"></addAndEdit>
 </template>
 <script setup lang="ts">
 import { Edit, Close, Plus, Search } from '@element-plus/icons-vue'
 import useBaseModel from '@/composables/department/useBaseModel'
 import useDeptTable from '@/composables/department/useDeptTable'
 import useDept from '@/composables/department/useDept'
-import AddAndEdit from './AddAndEdit.vue'
-//基础数据
+import addAndEdit from './addAndEdit.vue'
+// 基础数据
 const { rules } = useBaseModel()
-//表格列表
-const { searchForm, tableData, getDeptList } = useDeptTable()
+// 表格列表
+const { searchForm, tableData } = useDeptTable()
 // 表格的操作 搜索、新增、编辑、删除
-const { searchBtn, addBtn, editBtn, deleteBtn, save } = useDept()
+const { searchBtn, addBtn, editBtn, deleteBtn, save, addAndEditDeptRef } = useDept()
+
 </script>

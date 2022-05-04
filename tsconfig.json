@@ -13,6 +13,8 @@
       "esModuleInterop": true,
       "lib": ["esnext", "dom"],
       "allowSyntheticDefaultImports": true,
+      "skipLibCheck": true,
+      // "allowJs": true,
       // "types": ["element-plus/global"],
       "types": ["vite-plugin-svg-icons/client"],
       // 解决用字符串做下标报错

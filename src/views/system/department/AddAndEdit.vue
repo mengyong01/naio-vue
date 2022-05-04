@@ -13,10 +13,10 @@ import { EditType, Title } from '../../../utils/BaseEnum'
 import useBaseModel from '../../../composables/department/useBaseModel'
 
 //基础数据
-const { dialogModel } = useBaseModel();
+const { dialogModel } = useBaseModel()
 
 //弹框
-const { dialog, onClose, onShow } = useDialog();
+const { dialog, onClose, onShow } = useDialog()
 
 //注册事件
 const emit = defineEmits(['save'])
@@ -25,17 +25,17 @@ const confirm = () => {
     //返回值
     emit('save', dialogModel)
     //关闭弹框
-    onClose();
+    onClose()
 }
 
 //父组件调用子组件展示弹框
 const show = (type: string) => {
     //显示弹框
-    onShow();
+    onShow()
     //设置弹框的标题
     type == EditType.ADD ? dialog.title = Title.ADD : dialog.title = Title.EDIT
     //设置type
-    dialogModel.type = type;
+    dialogModel.type = type
 }
 
 defineExpose({
