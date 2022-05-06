@@ -1,3 +1,5 @@
+node版本14和16都可以，别的版本不保证
+
 ```javascript
 vue@3.2  
 vue-router@4.0 
