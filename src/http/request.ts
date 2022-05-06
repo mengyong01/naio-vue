@@ -9,7 +9,7 @@ export interface Result<T = any> {
     msg: string;
     data: T;
 }
-enum StatusCode{
+export enum StatusCode{
     // NoAuth  = 40100, //token失效
     NoAuth  = 600, //token失效
     // Success = 0 //返回成功
@@ -30,6 +30,7 @@ class request {
             if (token) {
                 //把token添加到请求头部
                 config.headers = {
+                    ...config.headers,
                     token: token
                 };
             }

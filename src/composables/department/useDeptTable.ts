@@ -1,8 +1,10 @@
 import { getDeptListApi } from '../../api/dept/dept'
 import { ListParam } from '../../api/dept/deptModel'
-import { reactive, onMounted } from 'vue'
+import { ref, reactive, onMounted, nextTick } from 'vue'
 
 export default function useDeptTable(){
+    //表格高度
+    const tableHeight = ref(0)
     //定义搜索数据
     const searchForm = reactive<ListParam>({
         searchName:''
@@ -21,10 +23,14 @@ export default function useDeptTable(){
     //首次加载数据
     onMounted(() =>{
         getDeptList()
+        nextTick(()=>{
+            tableHeight.value = window.innerHeight - 200
+        })
     })
     return{
         searchForm,
         tableData,
+        tableHeight,
         getDeptList
     }
 }

@@ -11,7 +11,7 @@
             </el-form-item>
         </el-form>
         <!-- 表格 -->
-        <el-table :data="tableData.list" style="width: 100%" row-key="id" default-expand-all size="medium" border
+        <el-table :height="tableHeight" :data="tableData.list" style="width: 100%" row-key="id" default-expand-all size="medium" border
             :tree-props="{ children: 'children', hasChildren: 'hasChildren' }">
             <el-table-column prop="name" label="部门名称" />
             <el-table-column prop="deptCode" label="部门编码" />
@@ -35,8 +35,8 @@ import addAndEdit from './addAndEdit.vue'
 // 基础数据
 const { rules } = useBaseModel()
 // 表格列表
-const { searchForm, tableData } = useDeptTable()
+const { searchForm, tableData, tableHeight, getDeptList } = useDeptTable()
 // 表格的操作 搜索、新增、编辑、删除
-const { searchBtn, addBtn, editBtn, deleteBtn, save, addAndEditDeptRef } = useDept()
+const { searchBtn, addBtn, editBtn, deleteBtn, save, addAndEditDeptRef } = useDept(getDeptList)
 
 </script>

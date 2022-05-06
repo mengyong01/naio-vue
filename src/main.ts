@@ -11,8 +11,6 @@ import { getToken, cleanSession} from '@/utils/auth'
 import 'element-plus/dist/index.css'
 //初始化样式
 import '@/styles/index.less'
-//引入echarts
-import * as echarts from 'echarts'
 //引入svg注册脚本
 //import 'virtual:svg-icons-register'
 const app = createApp(App)
@@ -21,7 +19,18 @@ app.use(store).use(router)
 import { permission } from '@/directives/permission'
 app.directive('permission', permission)
 //挂载工具
+//引入echarts
+import * as echarts from 'echarts'
+import resetForm from './utils/resetform'
+import objCopy from './utils/objcopy'
+import myconfirm from './utils/myconfirm'
+import { ElMessage } from 'element-plus'
 app.config.globalProperties.$echarts = echarts
+app.config.globalProperties.$resetForm = resetForm
+app.config.globalProperties.$objCopy = objCopy
+app.config.globalProperties.$myconfirm = myconfirm
+app.config.globalProperties.$message = ElMessage
+
 //Ico全局组件
 const Icon = (props: { icon: string }) => {
     const { icon } = props;
