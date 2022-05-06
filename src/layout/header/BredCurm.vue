@@ -10,6 +10,7 @@ const tabs: Ref<RouteLocationMatched[]> = ref([])
 const route = useRoute()
 const getBredCrumb = ()=>{
     let matched = route.matched.filter(item=>item.meta&&item.meta.title)
+    //token不存在 , 跳转的时候，需要注意 BredCurm.vue里面判断first
     const first = matched[0]
     if (first.path !== '/dashboard') {
         matched = [{path:'/dashboard',meta: {title:'首页'}} as any].concat(matched)

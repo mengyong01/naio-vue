@@ -19,7 +19,7 @@ export default function useDept() {
     }
     //编辑
     const editBtn = (row: DeptModel) => {
-        console.log('editBtn func')
+        console.log('editBtn func', row)
         addAndEditDeptRef.value?.show(EditType.EDIT)
     }
     //删除

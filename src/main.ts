@@ -6,45 +6,36 @@ import * as Icons from '@element-plus/icons-vue'
 import { useUserStore } from '@/store/user'
 import { useMenuStore } from '@/store/menu'
 import { getToken, cleanSession} from '@/utils/auth'
-
 // element-plus
-// import ElementPlus from 'element-plus'
+//import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
-
-// 初始化样式
+//初始化样式
 import '@/styles/index.less'
-// import { getToken, cleanSession} from './utils/auth'
-
-// 引入echarts
+//引入echarts
 import * as echarts from 'echarts'
-
-// 引入svg注册脚本
-// import 'virtual:svg-icons-register'
-
+//引入svg注册脚本
+//import 'virtual:svg-icons-register'
 const app = createApp(App)
 app.use(store).use(router)
-
-// permission
+//permission
 import { permission } from '@/directives/permission'
 app.directive('permission', permission)
-
-// 挂载工具
+//挂载工具
 app.config.globalProperties.$echarts = echarts
-
-// Ico全局组件
+//Ico全局组件
 const Icon = (props: { icon: string }) => {
     const { icon } = props;
     return createVNode(Icons[icon as keyof typeof Icons])
 };
 app.component('Icon', Icon)
 
-// Object.keys(Icons).forEach((key)=>{
-//     app.component(key, Icons[key as keyof typeof Icons])
-// })
+//Object.keys(Icons).forEach((key)=>{
+//    app.component(key, Icons[key as keyof typeof Icons])
+//})
 
 app.mount('#app')
 
-// 权限验证
+//权限验证
 const whiteList = ['/login']
 router.beforeEach(async (to, from, next) => {
     //必须放beforeEach中
@@ -73,7 +64,7 @@ router.beforeEach(async (to, from, next) => {
                 }
             }
         }
-    } else { //token不存在 , 跳转的时候，需要注意 BredCum.vue里面判断first
+    } else { //token不存在 , 跳转的时候，需要注意 BredCurm.vue里面判断first
         //判断是否存在白名单中
         if (whiteList.indexOf(to.path) !== -1) { //存在白名单中
             next()

@@ -15,7 +15,7 @@ export interface DeptModel {
     deptPhone: string;
     orderNum: number;
     open: boolean;
-    children: any
+    children: Array<DeptModel>
 }
 //新增、编辑 表单提交的数据类型
 export interface AddDeptModel {
@@ -29,4 +29,9 @@ export interface AddDeptModel {
     name: string;
     deptCode: string;
     orderNum: string;
+}
+//上级部门树选中的数据
+export interface SelectNode {
+    id: string | number;
+    name: string;
 }
