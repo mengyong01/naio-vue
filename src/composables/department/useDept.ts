@@ -32,33 +32,33 @@ export default function useDept(getDeptList) {
             id: row.id
         }
         const confirm = await global.$myconfirm('确定删除该数据吗?')
-        if(confirm){
+        if (confirm) {
             let res = await deleteDeptApi(param)
-            if(res && res.code == StatusCode.Success) {
+            if (res && res.code == StatusCode.Success) {
                 //信息提示
-                global.$message({message:res.msg, type:'success'})
+                global.$message({ message: res.msg, type: 'success' })
                 //刷新表格
                 getDeptList()
             }
         }
     }
     //保存（新增、编辑）
-    const save =async (model: AddDeptModel) => {
+    const save = async (model: AddDeptModel) => {
         console.log('保存')
         console.log(global)
         console.log(model)
 
         //真正的提交表单
         let res: Result
-        if(model.type == EditType.ADD){//新增
+        if (model.type == EditType.ADD) {//新增
             res = await addDeptApi(model)
-        }else{//编辑
+        } else {//编辑
             res = await editDeptApi(model)
         }
 
-        if(res && res.code == StatusCode.Success){
+        if (res && res.code == StatusCode.Success) {
             //信息提示
-            global.$message({message:res.msg, type:'success'})
+            global.$message({ message: res.msg, type: 'success' })
             //刷新表格
             getDeptList()
         }

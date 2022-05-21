@@ -5,16 +5,21 @@ import store from '@/store/index'
 import * as Icons from '@element-plus/icons-vue'
 import { useUserStore } from '@/store/user'
 import { useMenuStore } from '@/store/menu'
-import { getToken, cleanSession} from '@/utils/auth'
-// element-plus
-//import ElementPlus from 'element-plus'
-import 'element-plus/dist/index.css'
+import { getToken, cleanSession } from '@/utils/auth'
+
 //初始化样式
 import '@/styles/index.less'
 //引入svg注册脚本
 //import 'virtual:svg-icons-register'
 const app = createApp(App)
 app.use(store).use(router)
+
+// element-plus
+import ElementPlus from 'element-plus'
+import 'element-plus/dist/index.css'
+import locale from 'element-plus/lib/locale/lang/zh-cn'
+app.use(ElementPlus, { locale })
+
 //permission
 import { permission } from '@/directives/permission'
 app.directive('permission', permission)
@@ -41,6 +46,8 @@ app.component('Icon', Icon)
 //Object.keys(Icons).forEach((key)=>{
 //    app.component(key, Icons[key as keyof typeof Icons])
 //})
+
+
 
 app.mount('#app')
 

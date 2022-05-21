@@ -30,6 +30,6 @@ export const editDeptApi = async (params: AddDeptModel) => {
 }
 
 //删除
-export const deleteDeptApi = async (param) => {
+export const deleteDeptApi = async (param: any) => {
     return await http.delete(Api.delete, param)
 }

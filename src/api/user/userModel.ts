@@ -29,3 +29,31 @@ export interface UserInfo {
     name: string;
     roles: Array<string>
 }
+
+/**
+ * 用户列表查询参数
+ */
+ export interface UserListParm{
+    deptId:string | number;
+    loginName:string;
+    currentPage:number;
+    pageSize:number;
+    total:number;
+}
+
+/**
+ * 表单提交的参数
+ */
+export interface AddUserModel{
+    type:string;//add or edit
+    id: string | number;
+    deptId: string | number;
+    deptName: string;
+    loginName: string;
+    mobile: string;
+    nickName: string;
+    email: string;
+    username: string;
+    password: string;
+    sex: string;
+}
