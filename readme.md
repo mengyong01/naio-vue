@@ -10,7 +10,6 @@ vite@2.9
 typescript@4.6  
 less@4.1
 ```
-
-![](./assets/index.jpg)
-![](./assets/department.jpg)
-![](./assets/user.jpg)
+![首页](./assets/index.jpg)
+![部门管理](./assets/department.jpg)
+![用户管理](./assets/user.jpg)
