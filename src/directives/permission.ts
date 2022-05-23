@@ -8,7 +8,6 @@ export const permission: Directive = {
         const { value } = binding
         // 获取用户所有的权限
         const permissions = userStore.getPermissions
-
         if (value && value instanceof Array && value.length > 0) {
             const permissionRoles = value
             const hasPermission = permissions.some((role) => {
