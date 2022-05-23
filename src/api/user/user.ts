@@ -11,6 +11,7 @@ enum Api {
     getLeftTree = '/api/department/list',
     getUserList = '/api/user/list',
     addAndEditUser = '/api/user',
+    loginOut = '/api/sysUser/loginOut',
 }
 
 //登录
@@ -52,4 +53,8 @@ export const editUserApi = async (param: AddUserModel) => {
 
 export const deleteUserApi = async(param)=>{
     return await http.delete(Api.addAndEditUser, param)
+}
+
+export const loginOutApi = async(param)=>{
+    return await http.post(Api.loginOut, param)
 }

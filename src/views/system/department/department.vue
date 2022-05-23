@@ -7,6 +7,7 @@
             </el-form-item>
             <el-form-item>
                 <el-button :icon="Search" @click="searchBtn">查询</el-button>
+                <el-button :icon="Close" @click="resetBtn">重置</el-button>
                 <el-button size="small" type='primary' :icon="Plus" @click="addBtn">新增</el-button>
             </el-form-item>
         </el-form>
@@ -36,7 +37,7 @@ import addAndEdit from './addAndEdit.vue'
 const { rules } = useBaseModel()
 // 表格列表
 const { searchForm, tableData, tableHeight, getDeptList } = useDeptTable()
-// 表格的操作 搜索、新增、编辑、删除
-const { searchBtn, addBtn, editBtn, deleteBtn, save, addAndEditDeptRef } = useDept(getDeptList)
+// 表格的操作 搜索、重置、新增、编辑、删除
+const { searchBtn, resetBtn, addBtn, editBtn, deleteBtn, save, addAndEditDeptRef } = useDept(getDeptList, searchForm)
 
 </script>

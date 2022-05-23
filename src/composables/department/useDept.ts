@@ -1,11 +1,11 @@
 import { ref } from 'vue'
 import { EditType } from '@/utils/baseEnum'
 import { addDeptApi, deleteDeptApi, editDeptApi } from '@/api/dept/dept'
-import { DeptModel, AddDeptModel } from '@/api/dept/DeptModel'
+import { DeptModel, AddDeptModel, ListParam } from '@/api/dept/DeptModel'
 import { Result, StatusCode } from '@/http/request'
 import useInstance from '@/hooks/useInstance'
 
-export default function useDept(getDeptList) {
+export default function useDept(getDeptList, searchForm: ListParam) {
     const { global } = useInstance()
     const addAndEditDeptRef = ref<{ show: (type: string, row?: DeptModel) => void }>()
     // 下面这种方式在npm run build时会报错
@@ -13,6 +13,11 @@ export default function useDept(getDeptList) {
     //搜索
     const searchBtn = () => {
         console.log('searchBtn func')
+        getDeptList()
+    }
+    const resetBtn = ()=>{
+        searchForm.searchName = ''
+        getDeptList()
     }
     //新增
     const addBtn = () => {
@@ -65,6 +70,7 @@ export default function useDept(getDeptList) {
     }
     return {
         searchBtn,
+        resetBtn,
         addBtn,
         editBtn,
         deleteBtn,
