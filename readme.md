@@ -14,3 +14,4 @@ less@4.1
 ![部门管理](./assets/department.jpg)
 ![用户管理](./assets/user.jpg)
 ![角色管理](./assets/role.jpg)
+![权限管理](./assets/permission.jpg)
