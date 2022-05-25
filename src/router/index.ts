@@ -56,7 +56,7 @@ const publicRotues: Array<RouteRecordRaw> = [
             },
             {
                 path: "/roleList",
-                component: () => import('@/views/system/role/roleList.vue'),
+                component: () => import('@/views/system/Role/RoleList.vue'),
                 name: "roleList",
                 meta: {
                     title: "角色管理",

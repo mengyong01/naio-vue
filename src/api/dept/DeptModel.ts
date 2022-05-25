@@ -19,7 +19,7 @@ export interface DeptModel {
 }
 //新增、编辑 表单提交的数据类型
 export interface AddDeptModel {
-    type: string;
+    type: string; // 新增、编辑
     id: string | number;
     pid: string | number;
     parentName: string;

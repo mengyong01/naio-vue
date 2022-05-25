@@ -15,7 +15,7 @@ export const setUserId = (userId:number)=>{
     sessionStorage.setItem(Keys.UserId,JSON.stringify(userId))
 }
 export const getUserId = ()=>{
-    return sessionStorage.getItem(Keys.Token)
+    return sessionStorage.getItem(Keys.UserId)
 }
 //存储过期时间
 export const setExpireTime = (time:number)=>{
