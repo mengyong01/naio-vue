@@ -48,10 +48,6 @@ export default function useAddRole(dialog: DialogModel, onClose, onShow, emit: a
         addModel.type = type
     }
     return {
-        confirm,
-        show,
-        addModel,
-        rules,
-        addRoleForm
+        confirm, show, addRoleForm, addModel, rules
     }
 }

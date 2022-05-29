@@ -43,9 +43,6 @@ export default function useUserAddAndEdit(dialog: DialogModel, onShow: any, onCl
     }
 
     return {
-        confirm,
-        show,
-        addUserForm,
-        select
+        confirm, show, addUserForm, select
     }
 }
