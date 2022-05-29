@@ -26,9 +26,9 @@ app.directive('permission', permission)
 //挂载工具
 //引入echarts
 import * as echarts from 'echarts'
-import resetForm from './utils/resetform'
-import objCopy from './utils/objcopy'
-import myconfirm from './utils/myconfirm'
+import resetForm from '@/utils/resetform'
+import objCopy from '@/utils/objcopy'
+import myconfirm from '@/utils/myconfirm'
 import { ElMessage } from 'element-plus'
 app.config.globalProperties.$echarts = echarts
 app.config.globalProperties.$resetForm = resetForm
@@ -47,8 +47,6 @@ app.component('Icon', Icon)
 //    app.component(key, Icons[key as keyof typeof Icons])
 //})
 
-
-
 app.mount('#app')
 
 //权限验证
@@ -62,7 +60,6 @@ router.beforeEach(async (to, from, next) => {
         if (to.path === '/login' || to.path === '/') {
             next({ path: '/' })
         } else {
-            // console.log(userStore.$state)
             let hasRoles = userStore.$state.permissions && userStore.$state.permissions.length > 0
             if (hasRoles) {
                 next()
