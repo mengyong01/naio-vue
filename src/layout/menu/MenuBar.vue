@@ -10,13 +10,13 @@
         unique-opened
         router
     >
-        <MenuItem :menuList='menuList'></MenuItem>
+        <MenuItem :menuList="menuList"></MenuItem>
     </el-menu>
 </template>
     
 <script setup lang='ts'>
 import MenuItem from './MenuItem.vue'
-import { reactive,computed } from 'vue'
+import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { useCollapseStore } from '../../store/collapse'
 import { useMenuStore } from '../../store/menu'
@@ -172,8 +172,6 @@ const menuList = computed(() =>{
 //         ],
 //     },
 // ]);
-
-
 </script>
     
 <style lang="less" scoped>
