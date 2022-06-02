@@ -2,7 +2,7 @@ import { getDeptParentApi } from '@/api/dept/dept'
 import { DeptModel, SelectNode } from '@/api/dept/deptModel'
 import { reactive } from 'vue'
 
-export default function useParent() {
+export default function useDeptParent() {
     //上级树的数据
     const treeData = reactive({
         data: []

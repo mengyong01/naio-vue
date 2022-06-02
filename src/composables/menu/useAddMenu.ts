@@ -4,10 +4,14 @@ import { ref, reactive } from 'vue'
 import { ElForm } from 'element-plus'
 import { AddMenuModel } from '@/api/menu/menuModel'
 import useInstance from '@/hooks/useInstance'
+import { SelectNode } from '@/api/menu/menuModel'
 
-export default function useAddMenu(dialog: DialogModel, onShow, onClose) {
+export default function useAddMenu(dialog: DialogModel, onShow, onClose, emit: any) {
+
     const { global } = useInstance()
+
     const addMenuForm = ref<InstanceType<typeof ElForm>>()
+
     const addModel = reactive<AddMenuModel>({
         id: '',
         editType: '', //新增、编辑
@@ -76,8 +80,13 @@ export default function useAddMenu(dialog: DialogModel, onShow, onClose) {
     })
 
     const confirm = () => {
-        //关闭弹框
-        onClose()
+        addMenuForm.value?.validate((valid) => {
+            if (valid) {
+                emit('save', addModel)
+                //关闭弹框
+                onClose()
+            }
+        })
     }
 
     //显示弹框
@@ -91,10 +100,17 @@ export default function useAddMenu(dialog: DialogModel, onShow, onClose) {
         if (type == EditType.EDIT) {
             global.$objCopy(row, addModel)
         }
-        addModel.type = type
+        addModel.editType = type
+    }
+
+    //选中上级的数据
+    const select = (node: SelectNode) => {
+        console.log('父组件取到', node)
+        addModel.parentId = node.id 
+        addModel.parentName = node.name
     }
 
     return {
-        confirm, show, addMenuForm, addModel, rules
+        confirm, show, addMenuForm, addModel, rules, select
     }
 }

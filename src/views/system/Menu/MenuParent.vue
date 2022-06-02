@@ -12,7 +12,7 @@
 import { DocumentRemove, Plus, Minus } from '@element-plus/icons-vue'
 import SysDialog from '@/components/SysDialog/index.vue'
 import useDialog from '@/hooks/useDialog'
-import useDeptParent from '@/composables/department/useDeptParent'
+import useMenuParent from '@/composables/menu/useMenuParent'
 
 const { dialog, onClose, onShow } = useDialog()
 
@@ -39,7 +39,7 @@ defineExpose({
 })
 
 //树相关数据
-const { treeData, selectNode, defaultProps, handleNodeClick, getTreeData } = useDeptParent()
+const { treeData, selectNode, defaultProps, handleNodeClick, getTreeData } = useMenuParent()
 
 </script>
 <style scoped lang='less'>

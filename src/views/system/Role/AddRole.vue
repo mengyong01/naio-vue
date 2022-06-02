@@ -24,7 +24,7 @@
 import SysDialog from '@/components/SysDialog/index.vue'
 import useDialog from '@/hooks/useDialog'
 import useAddRole from '@/composables/role/useAddRole'
-import { defineEmits } from 'vue'
+
 //弹框属性
 const { dialog, onClose, onShow } = useDialog()
 

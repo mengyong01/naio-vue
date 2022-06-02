@@ -6,7 +6,9 @@ import { reactive, ref } from 'vue'
 import useInstance from '@/hooks/useInstance'
 
 export default function useAddRole(dialog: DialogModel, onClose, onShow, emit: any) {
+
     const { global } = useInstance()
+    
     const addRoleForm = ref<InstanceType<typeof ElForm>>()
 
     const addModel = reactive<AddRoleModel>({

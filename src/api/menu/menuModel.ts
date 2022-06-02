@@ -15,3 +15,29 @@ export interface AddMenuModel {
     code: string;
     orderNum: number;
 }
+
+export interface MenuModel {
+    id: string | number,
+    parentId: string,
+    parentName: string,
+    label: string,
+    code: string,
+    path: string,
+    name: string,
+    url: string,
+    orderNum: string | number,
+    type: string,
+    icon: string,
+    remark: string,
+    createTime: string,
+    updateTime: string,
+    children: Array<MenuModel>,
+    value: string,
+    open: boolean
+}
+
+//上级部门树选中的数据
+export interface SelectNode {
+    id: string | number;
+    name: string;
+}

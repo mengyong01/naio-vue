@@ -1,3 +1,4 @@
+import { AddMenuModel } from "@/api/menu/menuModel"
 import { EditType } from "@/utils/baseEnum"
 import { ref } from "vue"
 
@@ -16,8 +17,9 @@ export default function useMenu() {
 
     }
 
-    const save = () => {
-
+    const save = (param: AddMenuModel) => {
+        console.log('父组件的save方法')
+        console.log(param)
     }
 
     return {

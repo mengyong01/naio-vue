@@ -33,7 +33,7 @@
             </el-table-column>
         </el-table>
     </el-main>
-    <AddMenu ref="addMenuRef"></AddMenu>
+    <AddMenu ref="addMenuRef" @save="save"></AddMenu>
 </template>
 <script setup lang="ts">
 import { Plus, Edit, Close } from '@element-plus/icons-vue'
