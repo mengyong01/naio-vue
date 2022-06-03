@@ -27,7 +27,7 @@ const show = async () => {
   //
   await getTreeData()
   //
-  dialog.title = '选择上级部门'
+  dialog.title = '选择上级菜单'
   dialog.height = 420
   dialog.width = 300
   //

@@ -2,7 +2,7 @@ import { DialogModel } from "@/utils/baseType"
 import { EditType, Title } from '@/utils/baseEnum'
 import { ref, reactive } from 'vue'
 import { ElForm } from 'element-plus'
-import { AddMenuModel } from '@/api/menu/menuModel'
+import { AddMenuModel, MenuModel } from '@/api/menu/menuModel'
 import useInstance from '@/hooks/useInstance'
 import { SelectNode } from '@/api/menu/menuModel'
 
@@ -12,7 +12,7 @@ export default function useAddMenu(dialog: DialogModel, onShow, onClose, emit: a
 
     const addMenuForm = ref<InstanceType<typeof ElForm>>()
 
-    const addModel = reactive<AddMenuModel>({
+    const addMenuModel = reactive<AddMenuModel>({
         id: '',
         editType: '', //新增、编辑
         type: '', //菜单类型 ： 0 目录 1 菜单  2 按钮
@@ -82,7 +82,7 @@ export default function useAddMenu(dialog: DialogModel, onShow, onClose, emit: a
     const confirm = () => {
         addMenuForm.value?.validate((valid) => {
             if (valid) {
-                emit('save', addModel)
+                emit('save', addMenuModel)
                 //关闭弹框
                 onClose()
             }
@@ -90,27 +90,27 @@ export default function useAddMenu(dialog: DialogModel, onShow, onClose, emit: a
     }
 
     //显示弹框
-    const show = (type: string, row: AddMenuModel) => {
+    const show = (type: string, row: MenuModel) => {
         //设置弹框标题
         type == EditType.ADD ? dialog.title = Title.ADD : dialog.title = Title.EDIT
         //显示弹框
         onShow()
-        global.$resetForm(addMenuForm.value, addModel)
+        global.$resetForm(addMenuForm.value, addMenuModel)
         //如果是编辑，要把编辑的数据复制到表单绑定的model里面
         if (type == EditType.EDIT) {
-            global.$objCopy(row, addModel)
+            global.$objCopy(row, addMenuModel)
         }
-        addModel.editType = type
+        addMenuModel.editType = type
     }
 
     //选中上级的数据
     const select = (node: SelectNode) => {
         console.log('父组件取到', node)
-        addModel.parentId = node.id 
-        addModel.parentName = node.name
+        addMenuModel.parentId = node.id 
+        addMenuModel.parentName = node.name
     }
 
     return {
-        confirm, show, addMenuForm, addModel, rules, select
+        confirm, show, addMenuForm, addMenuModel, rules, select
     }
 }

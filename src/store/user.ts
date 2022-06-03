@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { loginApi, getInfoApi } from '@/api/user/user'
 import { Types } from './types'
-import { LoginParm } from '@/api/user/userModel'
+import { LoginParam } from '@/api/user/userModel'
 import { Result } from '@/http/request'
 import { setToken as baseSetToken, setUserId, setExpireTime, getToken } from '@/utils/auth'
 
@@ -38,7 +38,7 @@ export const useUserStore = defineStore({
         setUserId(userId: string | number) {
             this.$state.userId = userId
         },
-        login(userinfo: LoginParm) {
+        login(userinfo: LoginParam) {
             return new Promise<Result>((resolve, reject) => {
                 loginApi(userinfo).then((res) => {
                     // debugger

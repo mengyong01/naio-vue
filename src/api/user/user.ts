@@ -1,4 +1,4 @@
-import { AddUserModel, LoginParm, LoginResult, UserInfo, UserListParm } from "./userModel"
+import { AddUserModel, AssignRoleListParam, SelectRoleParam, LoginParam, LoginResult, UserInfo, UserListParam } from "./userModel"
 import http from '../../http/http'
 
 
@@ -12,15 +12,18 @@ enum Api {
     getUserList = '/api/user/list',
     addAndEditUser = '/api/user',
     loginOut = '/api/sysUser/loginOut',
+    getRoleList = '/api/user/getRolistForAssign',
+    getRoleId = '/api/user/getRoleIdByUserId',
+    assignSave = '/api/user/assingRole',
 }
 
 //登录
-export async function loginApi(params: LoginParm) {
+export async function loginApi(param: LoginParam) {
     let temp = {
-        mobile: params.username,
-        password: params.password
+        mobile: param.username,
+        password: param.password
     }
-    return await http.login<LoginResult>(Api.login, params)
+    return await http.login<LoginResult>(Api.login, param)
 }
 
 //获取验证码
@@ -39,8 +42,8 @@ export const getLeftTreeApi = async () => {
 }
 
 //获取用户列表
-export const getUserListApi = async (parm: UserListParm) => {
-    return await http.get(Api.getUserList, parm)
+export const getUserListApi = async (param: UserListParam) => {
+    return await http.get(Api.getUserList, param)
 }
 
 export const addUserApi = async (param: AddUserModel) => {
@@ -57,4 +60,16 @@ export const deleteUserApi = async(param)=>{
 
 export const loginOutApi = async(param)=>{
     return await http.post(Api.loginOut, param)
+}
+
+export const getRoleListApi = async(param: AssignRoleListParam)=>{
+    return await http.get(Api.getRoleList, param)
+}
+
+export const getRoleIdApi = async(userId: number | string)=>{
+    return await http.getRestApi(Api.getRoleId, { userId: userId})
+}
+
+export const assingRoleSaveApi = async(param: SelectRoleParam)=>{
+    return await http.post(Api.assignSave, param)
 }

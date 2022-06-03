@@ -1,4 +1,4 @@
-export interface LoginParm {
+export interface LoginParam {
     username: string;
     password: string;
     code: string
@@ -33,7 +33,7 @@ export interface UserInfo {
 /**
  * 用户列表查询参数
  */
- export interface UserListParm{
+ export interface UserListParam{
     deptId:string | number;
     loginName:string;
     currentPage:number;
@@ -56,4 +56,16 @@ export interface AddUserModel{
     username: string;
     password: string;
     sex: string;
+}
+
+export interface AssignRoleListParam{
+    currentPage: number;
+    pageSize: number;
+    userId: string | number;
+    total: number;
+}
+
+export interface SelectRoleParam{
+    roleId:string | number;
+    userId:string | number;
 }

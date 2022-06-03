@@ -11,7 +11,7 @@ export default function useAddRole(dialog: DialogModel, onClose, onShow, emit: a
     
     const addRoleForm = ref<InstanceType<typeof ElForm>>()
 
-    const addModel = reactive<AddRoleModel>({
+    const addRoleModel = reactive<AddRoleModel>({
         id: '',
         name: '',
         remark: '',
@@ -30,7 +30,7 @@ export default function useAddRole(dialog: DialogModel, onClose, onShow, emit: a
     const confirm = () => {
         addRoleForm.value?.validate((valid)=>{
             if(valid){
-                emit('save', addModel)
+                emit('save', addRoleModel)
                 onClose()
             }
         })
@@ -42,14 +42,14 @@ export default function useAddRole(dialog: DialogModel, onClose, onShow, emit: a
         type == EditType.ADD ? dialog.title = Title.ADD : Title.EDIT
         //显示弹框
         onShow()
-        global.$resetForm(addRoleForm.value, addModel)
+        global.$resetForm(addRoleForm.value, addRoleModel)
         //如果是编辑，要把编辑的数据复制到表单绑定的model里面
         if (type == EditType.EDIT) {
-            global.$objCopy(row, addModel)
+            global.$objCopy(row, addRoleModel)
         }
-        addModel.type = type
+        addRoleModel.type = type
     }
     return {
-        confirm, show, addRoleForm, addModel, rules
+        confirm, show, addRoleForm, addRoleModel, rules
     }
 }

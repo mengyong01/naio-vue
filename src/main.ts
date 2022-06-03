@@ -13,6 +13,7 @@ import '@/styles/index.less'
 const app = createApp(App)
 app.use(store).use(router)
 //element-plus分页器中文显示
+import 'element-plus/dist/index.css'
 import ElementPlus from 'element-plus'
 import locale from 'element-plus/lib/locale/lang/zh-cn'
 app.use(ElementPlus, { locale })
@@ -25,6 +26,7 @@ import * as echarts from 'echarts'
 import resetForm from '@/utils/resetform'
 import objCopy from '@/utils/objcopy'
 import myconfirm from '@/utils/myconfirm'
+// import 'element-plus/es/components/message/style/css'
 import { ElMessage } from 'element-plus'
 app.config.globalProperties.$echarts = echarts
 app.config.globalProperties.$resetForm = resetForm

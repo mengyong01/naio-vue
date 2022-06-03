@@ -9,6 +9,9 @@ export default function useUser(getUserList: any) {
     //globale property
     const { global } = useInstance()
 
+    //分配角色组件的ref属性
+    const assignRoleRef = ref<{ show: (name: string, userId: string | number) => void }>()
+
     const userAddRef = ref<{ show: (type: string, row?: AddUserModel) => void }>()
 
     const addBtn = () => {
@@ -33,8 +36,8 @@ export default function useUser(getUserList: any) {
             }
         }
     }
-    const assignBtn = (param: any) => {
-        console.log('assignBtn', param)
+    const assignBtn = (row: AddUserModel) => {
+        assignRoleRef.value?.show(row.loginName, row.id)
     }
 
     const save = async (param: AddUserModel) => {
@@ -58,7 +61,8 @@ export default function useUser(getUserList: any) {
         editBtn,
         deleteBtn,
         assignBtn,
+        save,
         userAddRef,
-        save
+        assignRoleRef
     }
 }

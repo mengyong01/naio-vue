@@ -6,8 +6,14 @@ import { addRoleApi, deleteRoleApi, editRoleApi } from '@/api/role/role'
 import useInstance from '@/hooks/useInstance'
 
 export default function useRole(getRoleList: any) {
+
     const { global } = useInstance()
+
+    //分配权限弹框的ref属性
+    const assignMenuRef = ref<{show:(roleId:string,name:string)=>void}>()
+
     const addRoleRef = ref<{ show: (type: string, row?: AddRoleModel) => void }>()
+
     const addBtn = () => {
         addRoleRef.value?.show(EditType.ADD)
     }
@@ -43,8 +49,8 @@ export default function useRole(getRoleList: any) {
             global.$message({ message: res.msg, type: 'success' })
         }
     }
-    const assignPermission = () => {
-
+    const assignPermission = (roleId: string, name: string) => {
+        assignMenuRef.value?.show(roleId,name)
     }
 
     return {
@@ -53,6 +59,7 @@ export default function useRole(getRoleList: any) {
         deleteBtn,
         save,
         assignPermission,
-        addRoleRef
+        addRoleRef,
+        assignMenuRef
     }
 }

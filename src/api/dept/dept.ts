@@ -1,4 +1,4 @@
-import http from '../../http/http'
+import http from '@/http/http'
 import { AddDeptModel, ListParam } from './deptModel'
 
 enum Api {

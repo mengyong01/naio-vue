@@ -28,7 +28,7 @@
             <el-table-column label="操作" width="210" align="center">
                 <template #default="scope">
                     <el-button type="primary" size="small" @click="editBtn(scope.row)" :icon="Edit">编辑</el-button>
-                    <el-button type="danger" size="small" @click="deleteBtn" :icon="Close">删除</el-button>
+                    <el-button type="danger" size="small" @click="deleteBtn(scope.row.id)" :icon="Close">删除</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -42,12 +42,13 @@ import useMenuTable from '@/composables/menu/useMenuTable'
 import useMenu from '@/composables/menu/useMenu'
 import AddMenu from './AddMenu.vue'
 
+//表格的高度
+const tableHeight = ref(0)
 //表格数据获取
 const { menuTable, getMenuTable } = useMenuTable()
 //表格的操作
-const { addBtn, editBtn, deleteBtn, save, addMenuRef } = useMenu()
-//表格的高度
-const tableHeight = ref(0)
+const { addBtn, editBtn, deleteBtn, save, addMenuRef } = useMenu(getMenuTable)
+
 onMounted(() => {
     nextTick(() => {
         tableHeight.value = window.innerHeight - 200

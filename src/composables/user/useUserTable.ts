@@ -1,10 +1,10 @@
 import { reactive, onMounted } from 'vue'
-import { UserListParm } from '@/api/user/userModel'
+import { UserListParam } from '@/api/user/userModel'
 import { getUserListApi } from '@/api/user/user'
 
 export default function useUserTable() {
     //列表参数
-    const listParm = reactive<UserListParm>({
+    const listParam = reactive<UserListParam>({
         deptId: '',
         currentPage: 1,
         pageSize: 10,
@@ -18,30 +18,30 @@ export default function useUserTable() {
 
     //获取表格数据
     const getUserList = async () => {
-        let res = await getUserListApi(listParm)
+        let res = await getUserListApi(listParam)
         console.log(res)
         // debugger
         if (res && res.code == 200) {
             tableData.list = res.data.records
-            listParm.total = res.data.total
+            listParam.total = res.data.total
         }
     }
     //树点击数据
     const treeClick = (deptId: number) => {
         console.log('父组件收到')
         //设置点击的部门id
-        listParm.deptId = deptId
+        listParam.deptId = deptId
         //获取部门列表
         getUserList()
     }
     //页容量改变触发
     const sizeChange = (size: number) => {
-        listParm.pageSize = size
+        listParam.pageSize = size
         getUserList()
     }
     //页数改变触发
     const currentChange = (page: number) => {
-        listParm.currentPage = page
+        listParam.currentPage = page
         getUserList()
     }
     onMounted(() => {
@@ -53,11 +53,11 @@ export default function useUserTable() {
     }
 
     const resetBtn = ()=>{
-        listParm.loginName = ''
+        listParam.loginName = ''
         getUserList()
     }
     return {
-        listParm,
+        listParam,
         tableData,
         getUserList,
         treeClick,

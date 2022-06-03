@@ -1,4 +1,4 @@
-import { getTable } from "@/api/menu/menu"
+import { getMenuTableApi } from "@/api/menu/menu"
 import { onMounted, reactive } from 'vue'
 
 export default function useMenuTable(){
@@ -7,7 +7,7 @@ export default function useMenuTable(){
     })
 
     const getMenuTable = async()=>{
-        let res = await getTable()
+        let res = await getMenuTableApi()
         if(res && res.code == 200){
             menuTable.list = res.data
         }
