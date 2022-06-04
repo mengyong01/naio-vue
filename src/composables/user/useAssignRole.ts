@@ -1,9 +1,9 @@
-import { DialogModel } from '@/utils/baseType'
 import { ref, reactive, onMounted, nextTick } from 'vue'
-import { getRoleListApi, getRoleIdApi, assingRoleSaveApi } from '@/api/user/user'
-import { AssignRoleListParam } from '@/api/user/UserModel'
 import { getUserId } from '@/utils/auth'
 import useInstance from '@/hooks/useInstance'
+import { DialogModel } from '@/utils/baseType'
+import { AssignRoleListParam } from '@/api/user/userModel'
+import { getRoleListApi, getRoleIdApi, assingRoleSaveApi } from '@/api/user/user'
 
 export default function useAssignRole(dialog: DialogModel, onClose, onShow) {
     const { global } = useInstance()
@@ -80,7 +80,7 @@ export default function useAssignRole(dialog: DialogModel, onClose, onShow) {
         getRoleList()
     }
     //单选按钮点击事件
-    const getSlectRole = (row: any) => {
+    const getSelectRole = (row: any) => {
         console.log(row)
         //设置选中的角色id
         selectRoleId.value = row.id
@@ -94,6 +94,6 @@ export default function useAssignRole(dialog: DialogModel, onClose, onShow) {
         currentChange,
         tableHeight,
         selectRoleId,
-        getSlectRole
+        getSelectRole
     }
 }

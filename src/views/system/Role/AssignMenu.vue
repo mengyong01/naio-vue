@@ -28,14 +28,10 @@ import useDialog from '@/hooks/useDialog'
 import useAssignMenu from '@/composables/role/useAssignMenu'
 //弹框属性
 const { dialog, onShow, onClose } = useDialog()
-
 //组件业务
 const { confirm, show, assignTreeData, defaultProps,assignTree } = useAssignMenu(dialog, onShow, onClose)
-
 //暴露方法给父组件调用
 defineExpose({
     show
 })
 </script>
-<style scoped lang='less'>
-</style>

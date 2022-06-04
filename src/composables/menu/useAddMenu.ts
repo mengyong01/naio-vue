@@ -49,6 +49,13 @@ export default function useAddMenu(dialog: DialogModel, onShow, onClose, emit: a
                 message: "请填写菜单名称",
             },
         ],
+        icon: [
+            {
+                required: true,
+                trigger: "change",
+                message: "请填写菜单图标",
+            },
+        ],
         name: [
             {
                 required: true,

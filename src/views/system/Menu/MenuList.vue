@@ -25,6 +25,7 @@
             <el-table-column prop="name" label="路由名称" />
             <el-table-column prop="path" label="路由地址" />
             <el-table-column prop="url" label="组件路径" />
+            <el-table-column prop="code" label="权限字段" />
             <el-table-column label="操作" width="210" align="center">
                 <template #default="scope">
                     <el-button type="primary" size="small" @click="editBtn(scope.row)" :icon="Edit">编辑</el-button>
