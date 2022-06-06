@@ -1,11 +1,11 @@
 import { getCurrentInstance } from 'vue'
-import { LoginParm } from '@/api/user/userModel'
+import { LoginParam } from '@/api/user/userModel'
 import router from '@/router'
 import { useUserStore } from '@/store/user'
 
 const userStore = useUserStore()
 
-export default function useLogin(loginModel: LoginParm) {
+export default function useLogin(loginModel: LoginParam) {
     const { proxy } = getCurrentInstance() as any;
     //登录提交
     const login = () => {
